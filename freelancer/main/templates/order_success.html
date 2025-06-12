@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Дякую за замовлення{% endblock %}
+
+{% block extra_styles %}
+<style>
+    .thankyou-container {
+        max-width: 600px;
+        margin: 80px auto;
+        padding: 30px;
+        background-color: #f8f9fa;
+        border-radius: 12px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        text-align: center;
+    }
+    .thankyou-container h2 {
+        color: #28a745;
+        margin-bottom: 20px;
+    }
+    .thankyou-container p {
+        font-size: 1.2rem;
+        margin-bottom: 30px;
+    }
+    .btn-home {
+        text-decoration: none;
+        padding: 12px 25px;
+        background-color: #007bff;
+        color: white;
+        border-radius: 6px;
+        transition: background-color 0.3s ease;
+    }
+    .btn-home:hover {
+        background-color: #0056b3;
+        color: white;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="thankyou-container">
+    <h2>Дякуємо за ваше замовлення!</h2>
+    <p>Ми отримали ваше замовлення і зв’яжемося з вами найближчим часом.</p>
+    <a href="{% url 'index' %}" class="btn-home">Повернутися на головну</a>
+</div>
+{% endblock %}

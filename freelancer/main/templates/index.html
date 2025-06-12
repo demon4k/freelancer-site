@@ -1,22 +1,50 @@
-{% extends 'base.html' %}
 
+{% extends 'base.html' %}
+{% load static %}
 {% block title %}Головна{% endblock %}
 
 {% block content %}
 <h1 class="mb-4">Наші NFT</h1>
+
+<!-- Гарно оформлене меню категорій -->
+<nav class="mb-4">
+  <ul class="nav nav-pills flex-wrap gap-2">
+    <li class="nav-item">
+      <a href="{% url 'index' %}"
+         class="nav-link {% if not selected_category %}active{% endif %}">
+        Усі товари
+      </a>
+    </li>
+    {% for category in categories %}
+      <li class="nav-item">
+        <a href="?category={{ category.id }}"
+           class="nav-link {% if selected_category == category.id %}active{% endif %}">
+          {{ category.name }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</nav>
+
 <div class="row">
     {% for product in products %}
     <div class="col-md-4">
-        <div class="card mb-3">
-            <img src="{{ product.image_url }}" class="card-img-top" alt="{{ product.name }}">
+        <div class="card mb-3 shadow-sm">
+            {% if product.image %}
+                <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+            {% else %}
+                <img src="{% static 'images/placeholder.jpg' %}" class="card-img-top" alt="No image">
+            {% endif %}
             <div class="card-body">
                 <h5 class="card-title">{{ product.name }}</h5>
                 <p class="card-text">{{ product.description|truncatechars:80 }}</p>
                 <p><strong>{{ product.price }} ETH</strong></p>
-                <button class="btn btn-primary">Купити</button>
+                <a href="{% url 'product_detail' product.pk %}" class="btn btn-primary">Деталі</a>
             </div>
         </div>
     </div>
+    {% empty %}
+        <p>Товарів немає.</p>
     {% endfor %}
 </div>
 {% endblock %}
